@@ -1,5 +1,3 @@
 # Bad Prompt
 
-Проверь страницу `/sessions/evening`.
-
-Найди баги, если они есть.
+Проверь в браузере страницу `http://localhost:3000/sessions/evening`.
