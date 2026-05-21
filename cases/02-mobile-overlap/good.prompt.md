@@ -1,6 +1,4 @@
-# Good Prompt
-
-Проверь мобильную версию `/sessions/evening` как visual QA agent.
+Проверь мобильную версию `http://localhost:3000/sessions/mobile-overlap` как visual QA agent.
 
 Используй сценарий `mobile-overlap`.
 

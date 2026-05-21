@@ -1,5 +1,3 @@
-# Good Prompt
-
 Проверь `/sessions/evening` как SSR/client QA scenario.
 
 Используй сценарий `hydration-mismatch`.
