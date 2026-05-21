@@ -96,6 +96,6 @@ pnpm workshop:add-hydration-test
 pnpm test:e2e --grep "hydration"
 ```
 
-The check is expected to fail while the seeded `hydration-mismatch` bug is present.
+The check is expected to fail while the seeded `hydration-mismatch` bug is present. The server-rendered booking state starts with `A2`, but the hydrated client starts with `B1`.
 
-Fix `features/booking/HydrationMismatchProbe.tsx` so the first client render matches the server-rendered value, then run the hydration test again.
+For a live browser demo, run this scenario in production mode with `pnpm build && pnpm start`; `next dev` shows a large framework overlay for real hydration mismatches. Fix `features/booking/BookingFlow.tsx` so the first client render uses the same initial selected seat ids as the server render, then run the hydration test again.

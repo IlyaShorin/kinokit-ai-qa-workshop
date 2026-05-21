@@ -20,6 +20,13 @@ test('hydration keeps server and client booking state consistent', async ({ page
 
   await useScenario(page, 'hydration-mismatch');
 
-  await expect(page.getByTestId('hydration-probe')).toHaveText('SSR и клиент согласованы: A2');
+  await expect(page.getByLabel('Выбранные места')).toHaveText('A2');
+  await expect(
+    page.getByRole('button', { name: 'Место A2, стандарт, 120 ₽, доступно' })
+  ).toHaveAttribute('aria-pressed', 'true');
+  await expect(
+    page.getByRole('button', { name: 'Место B1, VIP, 240 ₽, доступно' })
+  ).toHaveAttribute('aria-pressed', 'false');
+
   expect(hydrationDiagnostics).toEqual([]);
 });

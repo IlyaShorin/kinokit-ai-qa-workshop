@@ -33,7 +33,7 @@ Available workshop scenarios:
 - `evening` — main `/sessions/evening` happy path.
 - `vip-pricing` — A2 standard `120 ₽`, B1 VIP `240 ₽`, expected total `360 ₽`.
 - `mobile-overlap` — same booking data with the seeded mobile visual overlap enabled.
-- `hydration-mismatch` — placeholder scenario data for the SSR/client mismatch exercise.
+- `hydration-mismatch` — real SSR/client mismatch: server render selects `A2`, hydrated client selects `B1`.
 
 ## VIP regression workshop step
 
@@ -58,7 +58,14 @@ pnpm workshop:add-hydration-test
 pnpm test:e2e --grep "hydration"
 ```
 
-That hydration test should fail before the manual fix. The server-rendered probe says `A2`, while the hydrated client state says `B1`.
+That hydration test should fail before the manual fix. For a live browser demo without the Next.js dev overlay, run the app in production mode:
+
+```bash
+pnpm build
+pnpm start
+```
+
+In development mode, Next.js intentionally shows a large hydration error overlay for this bug.
 
 ## Visual check
 
