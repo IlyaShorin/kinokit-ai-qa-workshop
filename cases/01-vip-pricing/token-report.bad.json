@@ -1,9 +1,0 @@
-{
-  "case": "chaotic-agent",
-  "mode": "playwright-mcp",
-  "approxInputTokens": 12000,
-  "approxOutputTokens": 1800,
-  "toolCalls": 10,
-  "usefulFindings": 0,
-  "acceptedArtifacts": []
-}

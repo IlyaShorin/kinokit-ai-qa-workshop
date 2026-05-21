@@ -9,8 +9,8 @@ The repository must support this story:
 > AI made frontend development faster.
 > Now frontend verification becomes the bottleneck.
 > Instead of asking an agent to “test the app” vaguely, we build a frontend QA harness:
-> controlled data, MSW scenarios, SSR/client mocks, Playwright tests, screenshot tests,
-> repository skills and token/cost reports.
+> controlled MSW data, named QA scenarios, SSR/client state checks, Playwright tests, screenshot tests
+> and repository skills.
 
 The repository is not just an app.
 It is a workshop artifact.
@@ -21,11 +21,11 @@ It must contain:
 - seeded bugs for demo;
 - Playwright E2E tests;
 - screenshot tests;
-- MSW scenarios;
+- MSW mock API handlers;
+- named QA scenarios;
 - SSR/client mismatch scenario;
 - repository skills/prompts for AI agents;
-- fallback outputs for live demos;
-- token/cost report examples.
+- fallback outputs for live demos.
 
 ---
 
@@ -50,8 +50,9 @@ Required commands:
 ```bash
 pnpm install
 pnpm dev
+pnpm test:msw
 pnpm test:e2e
 pnpm test:e2e --grep "VIP"
 pnpm test:visual
-pnpm token-meter
+pnpm codex-usage
 ```

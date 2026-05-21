@@ -7,12 +7,13 @@ Run:
 ```bash
 pnpm workshop:reset
 pnpm dev
+pnpm test:msw
 pnpm test:e2e
 ```
 
 Show that the baseline E2E suite passes on `/sessions/evening`.
 
-The helper `useScenario(page, scenarioName)` sets `qa-scenario` and opens `/sessions/evening`. Generated tests should not add another `page.goto('/sessions/evening')` after calling it.
+The booking data comes from the MSW mock API. The helper `useScenario(page, scenarioName)` sets `qa-scenario` and opens `/sessions/evening`. Generated tests should not add another `page.goto('/sessions/evening')` after calling it.
 
 The demo uses Russian UI labels and ruble prices:
 
@@ -63,15 +64,7 @@ pnpm test:e2e --grep "VIP"
 
 The VIP regression test should pass after the manual fix.
 
-## 6. Token report
-
-Run:
-
-```bash
-pnpm token-meter
-```
-
-## 7. Mobile visual check
+## 6. Mobile visual check
 
 Run:
 
@@ -87,7 +80,7 @@ The diff should show the booking summary overlapping the seat map after selectin
 
 Fix `app/globals.css` by removing the mobile-only overlap rule for `.booking-flow.mobile-overlap-demo .booking-summary`, then run `pnpm test:visual` again.
 
-## 8. Hydration mismatch
+## 7. Hydration mismatch
 
 Run:
 
@@ -99,3 +92,13 @@ pnpm test:e2e --grep "hydration"
 The check is expected to fail while the seeded `hydration-mismatch` bug is present. The server-rendered booking state starts with `A2`, but the hydrated client starts with `B1`.
 
 For a live browser demo, run this scenario in production mode with `pnpm build && pnpm start`; `next dev` shows a large framework overlay for real hydration mismatches. Fix `features/booking/BookingFlow.tsx` so the first client render uses the same initial selected seat ids as the server render, then run the hydration test again.
+
+## 8. Codex local usage
+
+Run only if you want to show real local Codex usage for the repository:
+
+```bash
+pnpm codex-usage
+```
+
+The report reads `~/.codex/sessions` and is not provider billing.

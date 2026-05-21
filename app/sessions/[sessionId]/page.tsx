@@ -1,7 +1,7 @@
 import { cookies } from 'next/headers';
 import { notFound } from 'next/navigation';
+import { fetchBookingScenario } from '@/features/booking/api';
 import { BookingFlow } from '@/features/booking/BookingFlow';
-import { bookingScenarios } from '@/features/booking/scenarios';
 
 type SessionPageProps = {
   params: Promise<{
@@ -13,12 +13,13 @@ export default async function SessionPage({ params }: SessionPageProps) {
   const { sessionId } = await params;
   const cookieStore = await cookies();
   const qaScenario = cookieStore.get('qa-scenario')?.value;
-  const scenarioId = qaScenario && bookingScenarios[qaScenario] ? qaScenario : sessionId;
-  const scenario = bookingScenarios[scenarioId];
+  const scenario = await fetchBookingScenario(sessionId, qaScenario);
 
   if (!scenario) {
     notFound();
   }
+
+  const scenarioId = scenario.session.id;
 
   return (
     <main className="page-shell">

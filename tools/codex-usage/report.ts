@@ -3,16 +3,6 @@ import { homedir } from 'node:os';
 import { basename, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-type TokenReport = {
-  case: string;
-  mode: string;
-  approxInputTokens: number;
-  approxOutputTokens: number;
-  toolCalls: number;
-  usefulFindings: number;
-  acceptedArtifacts: string[];
-};
-
 type TokenUsage = {
   inputTokens: number;
   cachedInputTokens: number;
@@ -45,37 +35,6 @@ type CliOptions = {
   limit?: number;
   codexHome?: string;
 };
-
-function collectReportFiles(directory: string): string[] {
-  return readdirSync(directory).flatMap((entry) => {
-    const fullPath = join(directory, entry);
-    const stats = statSync(fullPath);
-
-    if (stats.isDirectory()) {
-      return collectReportFiles(fullPath);
-    }
-
-    return entry.startsWith('token-report.') && entry.endsWith('.json') ? [fullPath] : [];
-  });
-}
-
-function readReport(filePath: string): TokenReport {
-  return JSON.parse(readFileSync(filePath, 'utf8')) as TokenReport;
-}
-
-function printReport(reports: TokenReport[]) {
-  console.log('Case                         Mode             Tokens   Tool calls   Findings   Artifacts');
-  console.log('---------------------------  ---------------  -------  -----------  ---------  -----------------------');
-
-  for (const report of reports) {
-    const tokens = report.approxInputTokens + report.approxOutputTokens;
-    const artifacts = report.acceptedArtifacts.length > 0 ? report.acceptedArtifacts.join(', ') : '-';
-
-    console.log(
-      `${report.case.padEnd(27)}  ${report.mode.padEnd(15)}  ${String(tokens).padStart(7)}  ${String(report.toolCalls).padStart(11)}  ${String(report.usefulFindings).padStart(9)}  ${artifacts}`
-    );
-  }
-}
 
 function collectFiles(directory: string, predicate: (filePath: string) => boolean): string[] {
   if (!existsSync(directory)) {
@@ -282,7 +241,8 @@ function printCodexReport(reports: CodexSessionReport[]) {
 
   const totals = totalUsage(reports);
 
-  console.log('Codex token usage');
+  console.log('Codex local usage');
+  console.log('Source: local Codex session JSONL files, not provider billing');
   console.log(`Sessions: ${reports.length}`);
   console.log(
     `Total: ${formatNumber(totals.totalTokens)} tokens | input ${formatNumber(totals.inputTokens)} | cached ${formatNumber(totals.cachedInputTokens)} | output ${formatNumber(totals.outputTokens)} | reasoning ${formatNumber(totals.reasoningOutputTokens)}`
@@ -320,7 +280,7 @@ function readCliOptions(args: string[]): CliOptions {
       options.codexHome = value;
       index += 1;
     } else {
-      throw new Error(`Unknown token-meter option: ${arg}`);
+      throw new Error(`Unknown codex-usage option: ${arg}`);
     }
   }
 
@@ -335,30 +295,9 @@ function readCliOptions(args: string[]): CliOptions {
   return options;
 }
 
-function printFixtureReports() {
-  const reportFiles = collectReportFiles(join(process.cwd(), 'cases'));
-  const reports = reportFiles.map(readReport).sort((left, right) => {
-    return left.case.localeCompare(right.case);
-  });
-
-  printReport(reports);
-}
-
 function main() {
-  const command = process.argv[2] ?? 'report';
-
-  if (command === 'report') {
-    printFixtureReports();
-    return;
-  }
-
-  if (command === 'codex') {
-    const options = readCliOptions(process.argv.slice(3));
-    printCodexReport(collectCodexSessionReports(options));
-    return;
-  }
-
-  throw new Error(`Unknown token-meter command: ${command}`);
+  const options = readCliOptions(process.argv.slice(2));
+  printCodexReport(collectCodexSessionReports(options));
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
