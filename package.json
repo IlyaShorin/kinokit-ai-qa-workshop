@@ -10,7 +10,9 @@
     "lint": "eslint .",
     "test:e2e": "env -u FORCE_COLOR -u NO_COLOR playwright test tests/e2e",
     "test:visual": "env -u FORCE_COLOR -u NO_COLOR playwright test --config=playwright.visual.config.ts",
+    "test:token-meter": "node --import tsx --test tools/token-meter/report.test.ts",
     "token-meter": "tsx tools/token-meter/report.ts",
+    "token-meter:codex": "tsx tools/token-meter/report.ts codex --project kinokit-ai-qa-workshop",
     "workshop:reset": "tsx tools/workshop/reset.ts",
     "workshop:add-vip-test": "tsx tools/workshop/add-vip-test.ts",
     "workshop:add-hydration-test": "tsx tools/workshop/add-hydration-test.ts"

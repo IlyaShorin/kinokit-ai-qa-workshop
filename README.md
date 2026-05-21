@@ -81,6 +81,36 @@ See `cases/02-mobile-overlap/diff-notes.md` for the expected diff and the CSS ru
 
 ```bash
 pnpm token-meter
+pnpm token-meter:codex
 ```
 
-The report uses fixture JSON files from `cases/**/token-report*.json`; it is not real billing data.
+The default report uses fixture JSON files from `cases/**/token-report*.json`; it is not real billing data.
+The Codex report reads local `~/.codex/sessions/**/*.jsonl` token events and aggregates real local Codex App/CLI usage for this project.
+
+## Alternative token meters
+
+For Codex-focused workshop runs, prefer the repository command:
+
+```bash
+pnpm token-meter:codex
+```
+
+For other coding agents:
+
+- OpenCode has built-in usage reporting:
+
+  ```bash
+  opencode stats
+  opencode stats --project kinokit-ai-qa-workshop --models 10 --tools 10
+  ```
+
+- [ccusage](https://github.com/ryoppippi/ccusage) can read local usage data from multiple agent CLIs, including Claude Code, Codex and OpenCode:
+
+  ```bash
+  bunx ccusage claude daily
+  bunx ccusage opencode daily
+  bunx ccusage codex daily
+  bunx ccusage session
+  ```
+
+Claude Code also has a built-in `/usage` command for the current session. Treat all local token meters as operational estimates; authoritative billing still lives in each provider's usage dashboard.

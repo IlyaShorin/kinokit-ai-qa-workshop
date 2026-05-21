@@ -6,6 +6,8 @@ Use:
 
 ```bash
 pnpm token-meter
+pnpm token-meter:codex
 ```
 
-The first version reads example JSON reports from case folders and prints a compact comparison table.
+The fixture report reads example JSON reports from case folders and prints a compact comparison table.
+The Codex report reads local Codex session JSONL files from `~/.codex/sessions` and prints real local token usage for this repository.
