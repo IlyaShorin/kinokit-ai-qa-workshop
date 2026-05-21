@@ -1,0 +1,34 @@
+{
+  "name": "kinokit-ai-qa-workshop",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "lint": "eslint .",
+    "test:e2e": "env -u FORCE_COLOR -u NO_COLOR playwright test tests/e2e",
+    "test:visual": "env -u FORCE_COLOR -u NO_COLOR playwright test --config=playwright.visual.config.ts",
+    "token-meter": "tsx tools/token-meter/report.ts",
+    "workshop:add-vip-test": "tsx tools/workshop/add-vip-test.ts"
+  },
+  "dependencies": {
+    "next": "^15.3.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.3.5",
+    "@eslint/js": "^9.27.0",
+    "@playwright/test": "^1.52.0",
+    "@types/node": "^22.15.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "eslint": "^9.27.0",
+    "eslint-config-next": "^15.3.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.8.0",
+    "typescript-eslint": "^8.32.0"
+  },
+  "packageManager": "pnpm@10.11.0"
+}

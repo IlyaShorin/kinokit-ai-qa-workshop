@@ -1,0 +1,9 @@
+{
+  "case": "guided-agent-vip-pricing",
+  "mode": "playwright-mcp",
+  "approxInputTokens": 6500,
+  "approxOutputTokens": 1400,
+  "toolCalls": 5,
+  "usefulFindings": 1,
+  "acceptedArtifacts": ["bug-report", "regression-test"]
+}
