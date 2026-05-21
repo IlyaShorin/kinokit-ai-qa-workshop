@@ -32,6 +32,8 @@ Manual fix for the live demo:
 Remove the mobile-only negative margin from `.booking-flow.mobile-overlap-demo .booking-summary` in `app/globals.css`.
 After the fix, run `pnpm test:visual` again and the screenshot should match the baseline.
 
+See `diff-notes.md` for the expected screenshot diff and CSS rule to remove.
+
 Files:
 
 - `bad.prompt.md` — vague visual QA request.
@@ -39,3 +41,4 @@ Files:
 - `bad-output.md` — shallow result that misses the issue.
 - `good-output.md` — useful result that identifies the overlap.
 - `bug-report.md` — reproducible report for the layout bug.
+- `diff-notes.md` — visual diff fallback notes.

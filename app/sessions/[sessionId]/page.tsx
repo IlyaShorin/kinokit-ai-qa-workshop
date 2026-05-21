@@ -12,8 +12,9 @@ type SessionPageProps = {
 export default async function SessionPage({ params }: SessionPageProps) {
   const { sessionId } = await params;
   const cookieStore = await cookies();
-  const scenario = bookingScenarios[sessionId];
   const qaScenario = cookieStore.get('qa-scenario')?.value;
+  const scenarioId = qaScenario && bookingScenarios[qaScenario] ? qaScenario : sessionId;
+  const scenario = bookingScenarios[scenarioId];
 
   if (!scenario) {
     notFound();
@@ -35,7 +36,11 @@ export default async function SessionPage({ params }: SessionPageProps) {
         <p>Возрастной рейтинг: {scenario.movie.ageRating}</p>
       </section>
 
-      <BookingFlow seats={scenario.seats} visualOverlapDemo={qaScenario === 'mobile-overlap'} />
+      <BookingFlow
+        hydrationMismatchDemo={scenarioId === 'hydration-mismatch'}
+        seats={scenario.seats}
+        visualOverlapDemo={scenarioId === 'mobile-overlap'}
+      />
     </main>
   );
 }

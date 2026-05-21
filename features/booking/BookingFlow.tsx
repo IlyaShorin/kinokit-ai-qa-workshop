@@ -2,15 +2,21 @@
 
 import { useState } from 'react';
 import { BookingSummary } from './BookingSummary';
+import { HydrationMismatchProbe } from './HydrationMismatchProbe';
 import { SeatMap } from './SeatMap';
 import type { Seat } from './types';
 
 type BookingFlowProps = {
+  hydrationMismatchDemo?: boolean;
   seats: Seat[];
   visualOverlapDemo?: boolean;
 };
 
-export function BookingFlow({ seats, visualOverlapDemo = false }: BookingFlowProps) {
+export function BookingFlow({
+  hydrationMismatchDemo = false,
+  seats,
+  visualOverlapDemo = false
+}: BookingFlowProps) {
   const [selectedSeatIds, setSelectedSeatIds] = useState<string[]>([]);
   const [confirmedSeatIds, setConfirmedSeatIds] = useState<string[]>([]);
   const selectedSeats = seats.filter((seat) => selectedSeatIds.includes(seat.id));
@@ -44,6 +50,7 @@ export function BookingFlow({ seats, visualOverlapDemo = false }: BookingFlowPro
         selectedSeats={selectedSeats}
         onBook={bookTickets}
       />
+      <HydrationMismatchProbe enabled={hydrationMismatchDemo} />
     </section>
   );
 }

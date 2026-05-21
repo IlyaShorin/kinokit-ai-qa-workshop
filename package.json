@@ -10,7 +10,9 @@
     "test:e2e": "env -u FORCE_COLOR -u NO_COLOR playwright test tests/e2e",
     "test:visual": "env -u FORCE_COLOR -u NO_COLOR playwright test --config=playwright.visual.config.ts",
     "token-meter": "tsx tools/token-meter/report.ts",
-    "workshop:add-vip-test": "tsx tools/workshop/add-vip-test.ts"
+    "workshop:reset": "tsx tools/workshop/reset.ts",
+    "workshop:add-vip-test": "tsx tools/workshop/add-vip-test.ts",
+    "workshop:add-hydration-test": "tsx tools/workshop/add-hydration-test.ts"
   },
   "dependencies": {
     "next": "^15.3.0",

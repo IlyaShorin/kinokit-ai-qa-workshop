@@ -5,11 +5,20 @@
 Run:
 
 ```bash
+pnpm workshop:reset
 pnpm dev
 pnpm test:e2e
 ```
 
-Show that the basic booking happy path passes.
+Show that the baseline E2E suite passes on `/sessions/evening`.
+
+The helper `useScenario(page, scenarioName)` sets `qa-scenario` and opens `/sessions/evening`. Generated tests should not add another `page.goto('/sessions/evening')` after calling it.
+
+The demo uses Russian UI labels and ruble prices:
+
+- `Место A2, стандарт, 120 ₽, доступно`
+- `Место B1, VIP, 240 ₽, доступно`
+- `A2` + `B1` should total `360 ₽`
 
 ## 2. Chaotic agent
 
@@ -40,7 +49,7 @@ pnpm workshop:add-vip-test
 pnpm test:e2e --grep "VIP"
 ```
 
-The first run should expose the seeded bug.
+The test opens the named `vip-pricing` scenario through `useScenario(page, 'vip-pricing')`. The first run should expose the seeded bug: the app shows `240 ₽` instead of `360 ₽`.
 
 ## 5. Fix
 
@@ -74,4 +83,19 @@ This checks the mobile booking flow screenshot from `tests/visual/booking.mobile
 
 The check is expected to fail while the seeded `mobile-overlap` layout bug is present.
 
+The diff should show the booking summary overlapping the seat map after selecting `A2`, `B1` and `C3`. See `cases/02-mobile-overlap/diff-notes.md` for fallback notes.
+
 Fix `app/globals.css` by removing the mobile-only overlap rule for `.booking-flow.mobile-overlap-demo .booking-summary`, then run `pnpm test:visual` again.
+
+## 8. Hydration mismatch
+
+Run:
+
+```bash
+pnpm workshop:add-hydration-test
+pnpm test:e2e --grep "hydration"
+```
+
+The check is expected to fail while the seeded `hydration-mismatch` bug is present.
+
+Fix `features/booking/HydrationMismatchProbe.tsx` so the first client render matches the server-rendered value, then run the hydration test again.

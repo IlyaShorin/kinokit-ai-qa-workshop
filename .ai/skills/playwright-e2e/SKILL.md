@@ -10,6 +10,7 @@ Use this skill when an AI agent needs to create or update E2E tests for KinoKit.
 - Do not use CSS selectors for user-facing UI.
 - Do not use `page.waitForTimeout`.
 - Use `useScenario(page, scenarioName)` when a test needs a named scenario.
+- `useScenario` sets the `qa-scenario` cookie and opens `/sessions/evening`; do not call `page.goto('/sessions/evening')` after it.
 - Assert user-visible behavior.
 - Classify failures before changing product code.
 - Never weaken assertions just to make a test pass.
@@ -29,6 +30,9 @@ Use this skill when an AI agent needs to create or update E2E tests for KinoKit.
 
 - Standard seats cost `120 ₽`.
 - VIP seats cost `240 ₽`.
+- `A2` costs `120 ₽`.
+- `B1` costs `240 ₽`.
+- `A2` + `B1` should total `360 ₽`.
 - Occupied seats cannot be selected.
 - Booking confirmation must list selected seat ids.
 

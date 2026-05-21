@@ -18,4 +18,9 @@ test('позволяет выбрать стандартные места и о�
   await expect(page.getByLabel('Подтверждение брони')).toHaveText('Бронь создана: A2');
 });
 
-test.skip('VIP regression is stored as workshop fallback only', async () => {});
+test('открывает именованный сценарий с ценами мест', async ({ page }) => {
+  await page.goto('/sessions/vip-pricing');
+
+  await expect(page.getByRole('button', { name: 'Место A2, стандарт, 120 ₽, доступно' })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Место B1, VIP, 240 ₽, доступно' })).toBeVisible();
+});
