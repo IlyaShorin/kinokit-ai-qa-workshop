@@ -15,6 +15,7 @@ export function BookingSummary({
   onBook
 }: BookingSummaryProps) {
   const selectedSeatLabel = selectedSeatIds.length > 0 ? selectedSeatIds.join(', ') : 'Места не выбраны';
+  const selectedSeatsCountLabel = `Выбрано мест: ${selectedSeatIds.length}`;
   const totalPrice = calculateTotal(selectedSeats);
 
   return (
@@ -29,6 +30,11 @@ export function BookingSummary({
         >
           {selectedSeatLabel}
         </p>
+      </div>
+      <div className="summary-line">
+        <span aria-label="Количество выбранных мест" role="status">
+          {selectedSeatsCountLabel}
+        </span>
       </div>
       <div className="summary-line">
         <span>Итого</span>

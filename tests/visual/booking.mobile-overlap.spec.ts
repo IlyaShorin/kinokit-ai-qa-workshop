@@ -9,6 +9,7 @@ test('mobile booking flow keeps seat map and summary readable', async ({ page })
   await page.getByRole('button', { name: 'Место B1, VIP, 240 ₽, доступно' }).click();
   await page.getByRole('button', { name: 'Место C3, VIP, 240 ₽, доступно' }).click();
 
+  await expect(page.getByLabel('Количество выбранных мест')).toHaveText('Выбрано мест: 3');
   await expect(page.getByTestId('booking-flow')).toHaveScreenshot('mobile-booking-flow.png', {
     maxDiffPixelRatio: 0.01
   });
