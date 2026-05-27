@@ -7,9 +7,11 @@ test('позволяет выбрать стандартные места и о�
   await expect(page.getByRole('heading', { name: 'КиноКит: Вечерний сеанс' })).toBeVisible();
   await expect(page.getByText('Зал 2 · сегодня, 19:30')).toBeVisible();
   await expect(page.getByTestId('seat-map')).toBeVisible();
+  await expect(page.getByLabel('Количество выбранных мест')).toHaveText('Выбрано мест: 0');
 
   await page.getByRole('button', { name: 'Место A2, стандарт, 120 ₽, доступно' }).click();
 
+  await expect(page.getByLabel('Количество выбранных мест')).toHaveText('Выбрано мест: 1');
   await expect(page.getByLabel('Выбранные места')).toHaveText('A2');
   await expect(page.getByTestId('booking-total')).toHaveText('120 ₽');
 

@@ -22,6 +22,7 @@ export function BookingSummary({
       <h2 id="booking-summary-title">Бронирование</h2>
       <div>
         <h3>Выбранные места</h3>
+        <p aria-label="Количество выбранных мест">Выбрано мест: {selectedSeatIds.length}</p>
         <p
           aria-label="Выбранные места"
           className={selectedSeatIds.length > 0 ? undefined : 'empty-selection'}
